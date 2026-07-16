@@ -1,15 +1,69 @@
+import { useState } from "react"
+import toast from "react-hot-toast"
+
 export default function TestPage(){
+    
+    const [score,setScore] = useState(50)
+    const [mood ,setMood] = useState("😐")
+    
     return(
-        <div className="w-full h-full bg-green-400">
-            <div className="w-[450px] h-[450px] bg-white p-2">
-                <div className="w-[50px] h-[50px] bg-red-500 m-2"></div>
-                <div className="w-[50px] h-[50px] bg-green-500 m-[25px]"></div>
-                <div className="w-[50px] h-[50px] bg-blue-500"></div>
-                <div className="w-[50px] h-[50px] bg-pink-500"></div>
-                
-                
-            </div>
-                
+        <div className="w-full h-full bg-green-400  flex justify-center items-center">
+            <div className="w-[450px] h-[450px] bg-white flex justify-center items-center flex-col">
+                <h1 className="font-bold text-7xl">{score}</h1>
+                <div className="w-full h-[100px] flex justify-center items-center">
+                    <button className="w-[100px] bg-red-600 h-[40px] mx-5"
+                    onClick={
+                            ()=>{
+                                setScore(score-1)
+                            }
+                        }>
+                        Decrease
+                    </button>
+                    <button className="w-[100px] bg-green-600 h-[40px] mx-5"
+                        onClick={
+                            ()=>{
+                                setScore(score+1)
+                            }
+                        }>
+                        Increase
+                    </button>
+                </div>
+                <h1 className="font-bold text-7xl">{mood}</h1>
+                <div className="w-full h-[100px] flex justify-center items-center">
+                    <button className="w-[100px] bg-red-600 h-[40px] mx-5"
+                       onClick={
+                             ()=>{
+                                 setMood("☹️")
+                                 toast.error("Oh no! You are sad")
+                             }
+                         }>
+                         Sad
+                    </button>
+                     <button 
+                         className="w-[100px] bg-green-600 h-[40px] mx-5"
+                         onClick={
+                             ()=>{
+                                 setMood("😐")
+                                 toast("You are neutral",{
+                                     icon: "😐"
+                                 })
+                             }
+                         }>
+                         Neurtal
+                     </button>
+                      <button 
+                         className="w-[100px] bg-blue-600 h-[40px] mx-5"
+                         onClick={
+                             ()=>{
+                                 toast.success("Yay! You are happy")
+                                 setMood("😀")
+                             }
+                         }>
+                         Happy
+                     </button>
+                        
+                </div>
+            </div>       
         </div>
     )
 }
