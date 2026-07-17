@@ -40,14 +40,10 @@ export default function LoginPage(){
         }
     )
 
-    
 
     async function handleLogin(){
 
-      
         setLoading(true)
-
-        
 
         try{
             const res = await api.post("/users/login",{
@@ -58,22 +54,17 @@ export default function LoginPage(){
             localStorage.setItem("token" , res.data.token)
 
             if(res.data.isAdmin){
-
                 //window.location.href = "/admin"
-
                 navigate("/admin")
 
             }else{
-
                 //window.location.href = "/"
-
                 navigate("/")
 
             }
 
         }catch(err){
-
-            toast.error(  err?.response?.data?.message || "Login failed" )
+            toast.error(  err?.response?.data?.message|| "Login failed" )
 
         }
         setLoading(false)
