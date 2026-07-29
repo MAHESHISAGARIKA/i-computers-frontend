@@ -5,7 +5,7 @@ export default function  getFormattedPrice(price){
         return "N/A"
     }
 
-    const priceInNumber = Number(price); //NaN
+    const priceInNumber = Number(price); 
     
     if(isNaN(priceInNumber)){
         return "N/A"
