@@ -4,6 +4,7 @@ import { GrGift } from "react-icons/gr";
 import { HiOutlineUsers } from "react-icons/hi2";
 import AdminProductsPage from "./admin/adminProductPage";
 import AdminAddProductForm from "./admin/adminAddProductForm";
+import AdminEditProductForm from "./admin/adminEditProductPage";
 
 export default function AdminPage() {
   return (
@@ -35,6 +36,7 @@ export default function AdminPage() {
           <Route path="products" element={<AdminProductsPage />}/>
           <Route path="users" element={<h1>Users Page</h1>}/>
           <Route path="/add-product" element={<AdminAddProductForm/>}/>
+          <Route path="/edit-product" element={<AdminEditProductForm/>}/>
 
         </Routes>
       </div>
