@@ -14,7 +14,8 @@ const sampleProducts = [
 		altNames: ["RTX 4060", "GeForce RTX 4060", "4060 8GB"],
 		price: 145000,
 		labelledPrice: 155000,
-		description: "Mid-range graphics card suitable for 1080p and 1440p gaming.",
+		description:
+			"Mid-range graphics card suitable for 1080p and 1440p gaming.",
 		images: [
 			"/images/products/rtx4060-front.png",
 			"/images/products/rtx4060-back.png",
@@ -67,7 +68,8 @@ const sampleProducts = [
 		altNames: ["16GB DDR5", "Corsair 16GB RAM", "Vengeance DDR5 16GB"],
 		price: 24500,
 		labelledPrice: 27000,
-		description: "High-speed DDR5 memory module ideal for modern desktops.",
+		description:
+			"High-speed DDR5 memory module ideal for modern desktops.",
 		images: [
 			"/images/products/corsair-ddr5-1.png",
 			"/images/products/corsair-ddr5-2.png",
@@ -123,6 +125,7 @@ export default function AdminProductsPage() {
 	useEffect(() => {
 		if (loading) {
 			const token = localStorage.getItem("token");
+
 			api
 				.get("/products", {
 					headers: {
@@ -130,26 +133,50 @@ export default function AdminProductsPage() {
 					},
 				})
 				.then((res) => {
-					console.log(res.data);
-					setProducts(res.data);
+					console.log("Products response:", res.data);
+
+					if (Array.isArray(res.data) && res.data.length > 0) {
+						setProducts(res.data);
+					} else if (
+						Array.isArray(res.data?.products) &&
+						res.data.products.length > 0
+					) {
+						setProducts(res.data.products);
+					} else {
+						// Keep sample products when backend returns no products
+						setProducts(sampleProducts);
+					}
+				})
+				.catch((error) => {
+					console.error(
+						"Error fetching products:",
+						error?.response?.data || error.message
+					);
+
+					// Keep sample products when API request fails
+					setProducts(sampleProducts);
+				})
+				.finally(() => {
+					// Always remove the loading screen
 					setLoading(false);
 				});
 		}
 	}, [loading]);
-	//backend call products fetch and setProducts
+
 	return (
-		<div className="w-full h-full ">
+		<div className="w-full h-full">
 			<div className="w-full h-[100px] bg-white shadow-2xl mb-10 rounded-lg flex p-4 items-center justify-between">
-                <h1 className="text-2xl font-semibold">All Products</h1>
-                <div className="h-full gap-4 flex items-center">
-                    {products.length} Products
-                </div>                
-            </div>
-			{
-				loading && <LoadingScreen/>
-			}
+				<h1 className="text-2xl font-semibold">All Products</h1>
+
+				<div className="h-full gap-4 flex items-center">
+					{products.length} Products
+				</div>
+			</div>
+
+			{loading && <LoadingScreen />}
+
 			<table className="w-full text-center rounded-lg overflow-hidden">
-				<thead className="bg-accent text-white h-[40px] ">
+				<thead className="bg-accent text-white h-[40px]">
 					<tr>
 						<th className="w-[5%]"></th>
 						<th className="w-[7%]">Product ID</th>
@@ -164,30 +191,60 @@ export default function AdminProductsPage() {
 						<th className="w-[15%]">Actions</th>
 					</tr>
 				</thead>
+
 				<tbody>
 					{products.map((product) => {
 						return (
-							<tr className="odd:bg-gray-300 even:bg-white h-[60px]" key={product.productId}>
+							<tr
+								className="odd:bg-gray-300 even:bg-white h-[60px]"
+								key={product.productId}
+							>
 								<td>
 									<img
-										src={product.images[0]}
+										src={
+											product.images?.[0] ||
+											"/placeholder.png"
+										}
 										alt={product.name}
-										className="w-16 h-16  rounded"
+										className="w-16 h-16 rounded"
 									/>
 								</td>
+
 								<td>{product.productId}</td>
 								<td>{product.name}</td>
 								<td>{getFormattedPrice(product.price)}</td>
-								<td>{getFormattedPrice(product.labelledPrice)}</td>
+								<td>
+									{getFormattedPrice(
+										product.labelledPrice
+									)}
+								</td>
 								<td>{product.brand}</td>
 								<td>{product.model}</td>
 								<td>{product.category}</td>
-								<td>{product.isAvailable ? "Available" : "Out of Stock"}</td>
+
+								<td>
+									{product.isAvailable
+										? "Available"
+										: "Out of Stock"}
+								</td>
+
 								<td>{product.stock}</td>
+
 								<td>
 									<div className="w-full flex justify-center items-center gap-4">
-										<Link to="/admin/edit-product" state={product} ><CiEdit className="text-blue-600 text-xl rounded-full hover:border cursor-pointer " /></Link>
-										<ProductDeleteButton productId={product.productId} refresh={()=>setLoading(true)} />
+										<Link
+											to="/admin/edit-product"
+											state={product}
+										>
+											<CiEdit className="text-blue-600 text-xl rounded-full hover:border cursor-pointer" />
+										</Link>
+
+										<ProductDeleteButton
+											productId={product.productId}
+											refresh={() =>
+												setLoading(true)
+											}
+										/>
 									</div>
 								</td>
 							</tr>
