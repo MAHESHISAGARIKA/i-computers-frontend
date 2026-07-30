@@ -4,6 +4,8 @@ import api from "../utils/api"
 import LoadingScreen from "../components/loadingScreen"
 import ProductImageSlideShow from "../components/productImageSlideShow"
 import getFormattedPrice from "../utils/price-formatter"
+import { addToCart } from "../utils/cart"
+import toast from "react-hot-toast"
 
 export default function ProductOverview(){
     const parameters = useParams()
@@ -57,8 +59,30 @@ export default function ProductOverview(){
                         <p className="text-xl text-accent font-semibold ">{getFormattedPrice(product.price)}</p>
                         <p className="text-gray-700 mt-6">{product.description}</p>
                         <div className="flex">
-                            <button className="w-[220px] p-2 text-white bg-accent rounded-sm hover:bg-accent/90 mt-6" >Add to Cart</button>
-                            <button className="w-[220px] p-2 text-gray-700 bg-gray-300 rounded-sm hover:bg-gray-400 mt-6 ml-4 text-center">Buy Now</button>
+                            <button className="w-[220px] p-2 text-white bg-accent rounded-sm hover:bg-accent/90 mt-6" 
+                            onClick={
+                                ()=>{
+                                    addToCart(product , 1)
+                                    toast.success("Product added to cart")
+                                }
+                            }>Add to Cart</button>
+                            <Link className="w-[220px] p-2 text-gray-700 bg-gray-300 rounded-sm hover:bg-gray-400 mt-6 ml-4 text-center"
+                                to="/checkout"
+                               state={
+                                [
+                                    {
+                                        product : {
+                                            productId : product.productId,
+                                            name : product.name,
+                                            image : product.images[0],
+                                            price : product.price,
+                                            labelledPrice : product.labelledPrice
+                                        },
+                                        qty : 1
+                                    }
+                                ]
+                               }
+                            >Buy Now</Link>
                         </div>
                     </div>
 
