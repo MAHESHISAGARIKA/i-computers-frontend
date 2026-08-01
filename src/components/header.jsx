@@ -1,5 +1,6 @@
 import { BiCart } from "react-icons/bi";
 import { Link } from "react-router";
+import UserData from "./userData";
 import { IoCartOutline, IoCubeOutline, IoHomeOutline } from "react-icons/io5";
 import { CiPhone } from "react-icons/ci";
 
@@ -19,6 +20,7 @@ export default function Header(){
                 <Link to="/cart" className="h-full flex justify-center items-center text-white hover:text-gray-500 px-4">
                     <BiCart size={24}/>
                 </Link>
+                <UserData/>
             </div>
         </header>
 
@@ -35,6 +37,7 @@ export default function Header(){
                 <CiPhone />
                 <span className="text-sm text-accent">Contact Us</span>
             </Link>
+            <UserData/>
         </div>
 
         </>
