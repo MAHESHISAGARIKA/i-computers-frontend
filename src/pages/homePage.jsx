@@ -14,7 +14,7 @@ export default function HomePage() {
 			<div className="h-[calc(100%-100px)] w-full ">
                 <Routes>
                     
-    
+                    <Route path="/" element={<LandingPage/>} /> 
                     <Route path="/products" element={<ProductsPage />} />
                     {/* contact-us */}
                     <Route path="/contact-us" element={<h1>Contact Us Page</h1>} />
