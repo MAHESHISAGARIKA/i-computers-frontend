@@ -40,10 +40,14 @@ export default function LoginPage(){
         }
     )
 
+    
 
     async function handleLogin(){
 
+      
         setLoading(true)
+
+        
 
         try{
             const res = await api.post("/users/login",{
@@ -54,24 +58,29 @@ export default function LoginPage(){
             localStorage.setItem("token" , res.data.token)
 
             if(res.data.isAdmin){
+
                 //window.location.href = "/admin"
+
                 navigate("/admin")
 
             }else{
+
                 //window.location.href = "/"
+
                 navigate("/")
 
             }
 
         }catch(err){
-            toast.error(  err?.response?.data?.message|| "Login failed" )
+
+            toast.error(  err?.response?.data?.message || "Login failed" )
 
         }
         setLoading(false)
     }
 
     return (
-        <div className="w-full h-full bg-[url('/login.bg.jpg')] bg-cover bg-no-repeat flex justify-center items-center">
+        <div className="w-full h-full bg-[url('/login-bg.jpg')] bg-cover bg-no-repeat flex justify-center items-center">
 
             <div className="w-[400px] h-[500px] backdrop-blur-md shadow-2xl shadow-white rounded-xl flex flex-col p-4">
 
@@ -79,13 +88,13 @@ export default function LoginPage(){
 
                 <div className="w-full  ">
                     <label className="text-white text-lg flex items-center  gap-2"><MdEmail/> Email</label>
-                    <input className="w-full h-[40px] rounded-md px-2 border border-white" type="email" placeholder="maheshi@gmail.com" 
+                    <input className="w-full h-[40px] rounded-md px-2 border border-white" type="email" placeholder="kasun@gmail.com" 
                         onChange={
                             (e)=>{
                                 setEmail(e.target.value) 
                             }
                         }
-                           value={email}
+                        value={email}
                         />
                 </div>
 
@@ -97,9 +106,9 @@ export default function LoginPage(){
                                 setPassword(e.target.value)
                             }
                         }                       
-                          type="password"
-                          value={password}
-                    className="w-full h-[40px] rounded-md px-2 border border-white" placeholder="••••••••"/>
+                            type="password"
+                            value={password}
+                    className="w-full h-[40px] rounded-md px-2 border border-white" placeholder="•••••••••••"/>
                 </div>
                 <p className="w-full h-2 text-white text-right italic">Forget your password? click <Link to="/forget-password" className="font-bold text-accent">Here</Link> </p>
                 <button disabled={loading} className="w-full h-[50px] bg-accent mt-10 text-white rounded-lg" onClick={handleLogin}>
@@ -113,4 +122,3 @@ export default function LoginPage(){
         </div>
     )
 }
-
