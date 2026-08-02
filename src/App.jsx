@@ -9,11 +9,13 @@ import TestPage from './pages/test'
 import { Toaster } from 'react-hot-toast'
 import { GoogleOAuthProvider } from '@react-oauth/google'
 
+//26525937347-t6qaipjvjjuv9t4ftkha0ljtqganfcqu.apps.googleusercontent.com
+
 function App() {
   
 
   return (
-    <GoogleOAuthProvider clientId="357070172721-psc9uchu79ptgs1e12d4gbnli96j29mj.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId="26525937347-t6qaipjvjjuv9t4ftkha0ljtqganfcqu.apps.googleusercontent.com">
       <div className='w-full h-screen '>
          <Toaster position='top-right'/>
          <Routes>
