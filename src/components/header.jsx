@@ -1,5 +1,5 @@
 import { BiCart } from "react-icons/bi";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import UserData from "./userData";
 import { IoCartOutline, IoCubeOutline, IoHomeOutline } from "react-icons/io5";
 import { CiPhone } from "react-icons/ci";
