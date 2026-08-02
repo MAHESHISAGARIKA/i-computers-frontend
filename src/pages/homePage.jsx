@@ -6,6 +6,7 @@ import CartPage from "./cartPage";
 import CheckoutPage from "./checkout";
 import MyOrders from "./myOrders";
 import Settings from "./settings";
+import LandingPage from "./landingComponent";
 
 export default function HomePage() {
 	return (
